@@ -8,27 +8,27 @@ def singularity_integration(f, a, b, eps):
     from sympy import sympify, lambdify
     f = sympify(f)
     f = lambdify("x", f)
-    
+
     def recurse(f, a, b, eps, I0=np.inf):
-        N = 10
+        n = 10
 
         m = (a+b) / 2
-        h = (b-a) / (N-2)
-        x = np.linspace(a, b, N)[1:-1]
+        h = (b-a) / (n-2)
+        x = np.linspace(a, b, n)[1:-1]
         y = f(x)
 
         if not np.isfinite(y).all():
             I = 0
-            for (x, y) in zip(x, y):
+            for (x, y) in zip(x, y): # итератор из пар (x[0], y[0]), (x[1], y[1]) ... 
                 if not np.isfinite(y):
                     I += recurse(f, a, x, eps)
                     a = x
             I += recurse(f, a, b, eps)
             return I
 
-        I_l = np.sum(y[:len(x)//2]) * h
-        I_r = np.sum(y[len(x)//2:]) * h
-        I = I_l + I_r
+        I_l = np.sum(y[:len(x)//2]) * h # считаем интеграл слева от середины
+        I_r = np.sum(y[len(x)//2:]) * h # считаем интеграл справа от середины
+        I = I_l + I_r # находим полный интеграл
 
         if abs(I0 - I) < eps:
             return I
@@ -66,8 +66,6 @@ def improper_intergration():
     print_separator()
     tprint("Answer:")
     print(singularity_integration(equation, a, b, epsilon))
-
-improper_intergration()
 
 # ТОЧНЫЕ ОТВЕТЫ НА ИСХОДНЫЕ УРАВНЕНИЯ ДЛЯ НЕСОБСТВЕННЫХ ИНТЕГРАЛОВ
 # 1. 2 [0; 1]

@@ -112,6 +112,8 @@ def definite_intergration():
 
 def main():
     choice = int(input("1 - вычисление определенного интеграла \n2 - вычисление несобственного интеграла 2 рода \nЧто вы хотите посчитать? "))
+    print_separator()
+    
     match(choice):
         case 1:
             definite_intergration()
