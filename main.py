@@ -1,6 +1,6 @@
 from math import *
 from art import *
-from extra import improper_intergration
+from extra import intergration
 
 def print_separator():
     print("---------------------------------------------------")
@@ -118,12 +118,11 @@ def main():
         case 1:
             definite_intergration()
         case 2:
-            improper_intergration()
+            intergration()
         case _:
             exit("Ошибка: Неверный выбор")
 
 main()
-
 
 # ТОЧНЫЕ ОТВЕТЫ НА ИСХОДНЫЕ УРАВНЕНИЯ ДЛЯ ОПРЕДЕЛЕННЫХ ИНТЕГРАЛОВ
 # 1. 174 [2; 4]

@@ -1,11 +1,32 @@
 import numpy as np
 from art import *
+from sympy import *
 
 def print_separator():
     print("---------------------------------------------------")
 
+def check_convergence(f, a, b):
+    f = sympify(f)
+    x = symbols('x')
+    integral = integrate(f, (x, a, b))
+
+    if integral is None:
+        print("Интеграл не существует")
+        return False
+
+    limit = integrate(abs(f), (x, a, b))
+
+    if limit == np.inf:
+        print("Интеграл расходится")
+        return False
+
+    print("Интеграл сходится")
+    return True
+
 def singularity_integration(f, a, b, eps):
-    from sympy import sympify, lambdify
+    if not check_convergence(f, a, b):
+        exit()
+    
     f = sympify(f)
     f = lambdify("x", f)
 
@@ -38,7 +59,7 @@ def singularity_integration(f, a, b, eps):
         return recurse(f, a, b, eps)
 
 
-def improper_intergration():
+def intergration():
     choice = int(input("1. 1/sqrt(x) \n2. 1/sqrt(1-x) \n3. 1/sqrt(abs(x)) \n4. log(x) \n5. Ввести свое уравнение \nВыберите уравнение: "))
     match(choice):
         case 1:
@@ -72,3 +93,6 @@ def improper_intergration():
 # 2. 2 [0; 1]
 # 3. 4 [-1; 1]
 # 4. -1 [0; 1]
+
+# ПРИМЕРЫ РАСХОДЯЩИХСЯ ИНТЕГРАЛОВ
+# 1/sqrt(x**5) [0; 2]
