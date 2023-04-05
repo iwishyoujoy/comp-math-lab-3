@@ -1,5 +1,6 @@
 from math import *
 from art import *
+from extra import improper_intergration
 
 def print_separator():
     print("---------------------------------------------------")
@@ -61,7 +62,7 @@ def simpson_integration(f, a, b, eps, n):
         if abs(s-t) <= eps:
             return s
         
-def main():
+def definite_intergration():
     choice = int(input("1. 4*x**3 - 3*x**2 + 5*x - 20 \n2. x**3 - 3*x**2 + 6*x - 19 \n3. x**3 - 5*x**2 + 3*x - 16 \n4. 2*x**3 - 4*x**2 + 6*x - 25 \n5. -2*x**3 - 5*x**2 + 7*x - 13 \n6. Ввести свое уравнение \nВыберите уравнение: "))
     match(choice):
         case 1:
@@ -109,10 +110,20 @@ def main():
     tprint("Answer:")
     print(result)
 
+def main():
+    choice = int(input("1 - вычисление определенного интеграла \n2 - вычисление несобственного интеграла 2 рода \nЧто вы хотите посчитать? "))
+    match(choice):
+        case 1:
+            definite_intergration()
+        case 2:
+            improper_intergration()
+        case _:
+            exit("Ошибка: Неверный выбор")
+
 main()
 
 
-# ТОЧНЫЕ ОТВЕТЫ НА ИСХОДНЫЕ УРАВНЕНИЯ
+# ТОЧНЫЕ ОТВЕТЫ НА ИСХОДНЫЕ УРАВНЕНИЯ ДЛЯ ОПРЕДЕЛЕННЫХ ИНТЕГРАЛОВ
 # 1. 174 [2; 4]
 # 2. 2 [2; 4]
 # 3. -47.333 [2; 4]
